@@ -9,7 +9,7 @@ const {
 const semvers = {
   [SCC_STATE_PACKAGE_NAME]: {
     required: {
-      [SCC_BROKER_PACKAGE_NAME]: '^5.0.0',
+      [SCC_BROKER_PACKAGE_NAME]: '^3.0.0',
     },
     reported: {
       [SCC_STATE_PACKAGE_NAME]: null,
@@ -18,7 +18,7 @@ const semvers = {
   [SCC_BROKER_PACKAGE_NAME]: {
     required: {
       [SCC_STATE_PACKAGE_NAME]: '^3.0.0',
-      [SCC_BROKER_CLIENT_PACKAGE_NAME]: '^8.0.0',
+      [SCC_BROKER_CLIENT_PACKAGE_NAME]: '^5.0.0',
     },
     reported: {
       [SCC_BROKER_PACKAGE_NAME]: null,
@@ -26,7 +26,7 @@ const semvers = {
   },
   [SCC_BROKER_CLIENT_PACKAGE_NAME]: {
     required: {
-      [SCC_BROKER_PACKAGE_NAME]: '^4.0.0',
+      [SCC_BROKER_PACKAGE_NAME]: '^3.0.0',
       [SCC_STATE_PACKAGE_NAME]: '^3.0.0',
     },
     reported: {
