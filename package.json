@@ -1,0 +1,15 @@
+{
+  "name": "scc-semver-report",
+  "version": "1.0.0",
+  "description": "sccSemverReport finds and reports any incompatible components on all servers in your SocketCluster Cluster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mega <Aza.Noriega@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "sc-errors": "^1.4.0",
+    "semver": "^5.5.0"
+  }
+}
