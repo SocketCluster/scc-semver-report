@@ -1,36 +1,30 @@
 'use strict'
 
-const {
-  SCC_STATE_PACKAGE_NAME,
-  SCC_BROKER_PACKAGE_NAME,
-  SCC_BROKER_CLIENT_PACKAGE_NAME
-} = require('./constants')
-
 const semvers = {
-  [SCC_STATE_PACKAGE_NAME]: {
+  'scc-state': {
     required: {
-      [SCC_BROKER_PACKAGE_NAME]: '^3.0.0',
+      'scc-broker': '^3.0.0',
     },
     reported: {
-      [SCC_STATE_PACKAGE_NAME]: null,
+      'scc-state': null,
     },
   },
-  [SCC_BROKER_PACKAGE_NAME]: {
+  'scc-broker': {
     required: {
-      [SCC_STATE_PACKAGE_NAME]: '^3.0.0',
-      [SCC_BROKER_CLIENT_PACKAGE_NAME]: '^5.0.0',
+      'scc-state': '^3.0.0',
+      'scc-broker-client': '^5.0.0',
     },
     reported: {
-      [SCC_BROKER_PACKAGE_NAME]: null,
+      'scc-broker': null,
     },
   },
-  [SCC_BROKER_CLIENT_PACKAGE_NAME]: {
+  'scc-broker-client': {
     required: {
-      [SCC_BROKER_PACKAGE_NAME]: '^3.0.0',
-      [SCC_STATE_PACKAGE_NAME]: '^3.0.0',
+      'scc-broker': '^3.0.0',
+      'scc-state': '^3.0.0',
     },
     reported: {
-      [SCC_BROKER_CLIENT_PACKAGE_NAME]: null,
+      'scc-broker-client': null,
       'sc-broker-cluster': null,
       'sc-broker': null,
       'sc-auth': null,
@@ -42,4 +36,5 @@ const semvers = {
     },
   },
 }
+
 module.exports = semvers

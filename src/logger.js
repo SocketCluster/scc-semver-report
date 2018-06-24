@@ -1,5 +1,7 @@
 'use strict'
 
+const constants = require('./constants')
+
 /**
  * The simpliest logger ever.
  *
@@ -10,9 +12,6 @@
  * 3 - info, warnings, errors
  * 4 - log everything
  */
-
-const constants = require('./constants')
-
 class Logger {
   constructor() {
     this.setLogLevel(constants.DEFAULT_LOG_LEVEL)

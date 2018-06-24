@@ -1,4 +1,5 @@
 'use strict'
+
 const
   log = require('./logger'),
   semver = require('semver')
@@ -6,24 +7,33 @@ const
 module.exports = collectIssues
 
 /**
+ * Find issues: report vs all collected reports
+ *
  * @param {Object[]} reports - a collection of reports to check against
  * @param {Object} aReport - a report to check compatibility with
- * @returns issues - array of compatibility issues, if any
+ * @returns {Object[]} - an array of compatibility issues
  */
 function collectIssues(reports, aReport) {
   const issues = []
 
   reports.forEach(report => {
     Array.prototype.push.apply(issues, findIssues(report, aReport))
-    if (report.reporter.packageName !== aReport.reporter.packageName)
-      Array.prototype.push.apply(issues, findIssues(aReport, report))
+
+    // don't check aReport against itself in reports
+    if (report.reporter.packageName === aReport.reporter.packageName)
+      return
+
+    Array.prototype.push.apply(issues, findIssues(aReport, report))
   })
 
   return issues
 }
 
 /**
+ * Find issues: report vs report
  *
+ * @param {Object} r1 - a report to check compatibility against
+ * @param {Object} r2 - a report to check compatibility with
  */
 function findIssues(r1, r2) {
   // check if r2 meets requirements of r1
@@ -56,6 +66,7 @@ function findIssues(r1, r2) {
         },
         reporter: Object.assign({}, r1.reporter),
       }
+
       issues.push(issue)
     }
   }

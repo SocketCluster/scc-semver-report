@@ -19,7 +19,8 @@
  * This module doesn't throw those errors, just outputs to stderr.
  *
  * The errors may look like:
- * Compatibility issue: scc-broker-client@5.0.2 [192.168.0.44:8000] is incompatible with scc-broker@2.2.3 [192.168.0.101:8888] Please, update the scc-broker to version ^4.0.0
+ * Compatibility issue: scc-broker-client@5.0.2 [192.168.0.44:8000] is incompatible
+with scc-broker@2.2.3 [192.168.0.101:8888] Please, update the scc-broker to version ^4.0.0
  */
 
 let reporter = null

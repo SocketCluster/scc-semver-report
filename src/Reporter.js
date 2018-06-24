@@ -14,8 +14,8 @@ class Reporter {
       reporterNameIsValid = Object.keys(semvers).includes(reporterName)
 
     if (!argumentsAreConsistent || !reporterNameIsValid) {
-      const err = new InvalidArgumentsError(`
-        Wrong argument in sccSemverReporter constructor.
+      const err = new InvalidArgumentsError(
+        `Wrong argument in sccSemverReporter constructor.
         It should be a SCC component package name, from its package.json
         Instead provided: ${reporterName}`)
       throw err
@@ -60,6 +60,12 @@ class Reporter {
     return 'report is ready'
   }
 
+  /**
+   * Attach and initialize this module.
+   *
+   * @param {SCClientSocket|SCServerSocket} socket
+   * @param {Object} options
+   */
   attach(socket, options = {}) {
     if (typeof options.logLevel !== 'undefined')
       log.setLogLevel(Number(options.logLevel))
@@ -150,19 +156,12 @@ class Reporter {
   }
 
   publishIssues(issues, socket) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          publishViaSocket(socket, constants.SCC_SEMVER_REPORT_CHANNEL, issues, err => {
-            if (err)
-              return reject(err)
-
-            resolve('published')
-          })
-        }, constants.EMIT_PUBLISH_TIMER)
+    setTimeout(() => {
+      publishViaSocket(socket, constants.SCC_SEMVER_REPORT_CHANNEL, issues, err => {
+        if (err)
+          log.verbose('scc-semver-report publish error: ', err)
       })
-      .catch(err => log.verbose('scc-semver-report publish error: ', err))
-
-    return this
+    }, constants.EMIT_PUBLISH_TIMER)
   }
 }
 
@@ -189,18 +188,6 @@ function getChannelFromSocket(socket, channelName) {
   return getChannel(channelName)
 }
 
-function subscribeSocketForIssues(socket) {
-  const channel = getChannelFromSocket(socket, constants.SCC_SEMVER_REPORT_CHANNEL)
-
-  if (!channel.isSubscribed())
-    channel.subscribe({ waitForAuth: false })
-
-  channel.unwatch()
-  channel.watch(displayIssues)
-
-  return 'subscribed'
-}
-
 function publishViaSocket(socket, ...args) {
   let publish = null
 
@@ -217,6 +204,18 @@ function publishViaSocket(socket, ...args) {
   }
 
   return publish(...args)
+}
+
+function subscribeSocketForIssues(socket) {
+  const channel = getChannelFromSocket(socket, constants.SCC_SEMVER_REPORT_CHANNEL)
+
+  if (!channel.isSubscribed())
+    channel.subscribe({ waitForAuth: false })
+
+  channel.unwatch()
+  channel.watch(displayIssues)
+
+  return 'subscribed'
 }
 
 function displayIssues(issues) {
